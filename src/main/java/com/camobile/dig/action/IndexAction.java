@@ -19,13 +19,30 @@ package com.camobile.dig.action;
 import org.seasar.cubby.action.ActionClass;
 import org.seasar.cubby.action.ActionResult;
 import org.seasar.cubby.action.Forward;
+import org.seasar.cubby.action.Json;
 import org.seasar.cubby.action.Path;
+import org.seasar.cubby.action.RequestParameter;
+
+import com.camobile.dig.service.XmlBindService;
 
 @ActionClass
 @Path("/")
 public class IndexAction {
 
+	@RequestParameter
+	public static String xml;
+	@RequestParameter
+	public static String mode;
+	
 	public ActionResult index() {
-		return new Forward("index.jsp");
+		
+		try {
+			XmlBindService.parse(xml);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return new Json("index.jsp");
 	}
 }
