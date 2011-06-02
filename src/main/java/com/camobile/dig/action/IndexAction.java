@@ -16,6 +16,8 @@
 
 package com.camobile.dig.action;
 
+import java.util.List;
+
 import org.seasar.cubby.action.ActionClass;
 import org.seasar.cubby.action.ActionResult;
 import org.seasar.cubby.action.Forward;
@@ -23,6 +25,8 @@ import org.seasar.cubby.action.Json;
 import org.seasar.cubby.action.Path;
 import org.seasar.cubby.action.RequestParameter;
 
+import com.camobile.dig.model.Response;
+import com.camobile.dig.service.SoxInterfaceService;
 import com.camobile.dig.service.XmlBindService;
 
 @ActionClass
@@ -33,16 +37,25 @@ public class IndexAction {
 	public static String xml;
 	@RequestParameter
 	public static String mode;
+	@RequestParameter
+	public static String filename;
 	
 	public ActionResult index() {
+
+		Response res = new Response();
 		
 		try {
-			XmlBindService.parse(xml);
+			List nodes = XmlBindService.parse(xml);
+			SoxInterfaceService.make(nodes, filename);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+			res.setResult("NG");
+			return new Json(res);
 		}
+
+		res.setResult("OK");
 		
-		
-		return new Json("index.jsp");
+		return new Json(res);
 	}
 }
