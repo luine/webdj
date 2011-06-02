@@ -43,6 +43,6 @@ public class SoxInterfaceService {
 		
 		
 		
-		Runtime.getRuntime().exec(command);
+//		Runtime.getRuntime().exec(command);
 	}
 }
