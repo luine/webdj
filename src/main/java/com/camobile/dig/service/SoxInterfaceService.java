@@ -61,13 +61,14 @@ public class SoxInterfaceService {
 		}
 		
 		command += " ~/music/result/" + outputFileName + ".wav";
+		String enc = "lame ~/music/result/" + outputFileName + ".wav ~/music/result/" + outputFileName + ".mp3";
+		String scp = "scp -i ~/.ssh/backup/id_rsa ~/music/result/" + outputFileName + ".mp3 ec2-user@10.150.183.215:~/html/web_dj/music/result";
+
 		System.out.println(command);
-		String[] commands = {"/bin/sh", "-c", command};
+		String[] commands = {"/bin/sh", "-c", command, enc, scp};
 		Process pr = Runtime.getRuntime().exec(commands);
 		InputStream stderrStream = pr.getErrorStream();
 		System.out.println(inputStreemToString(stderrStream));
-		String enc = "lame ~/music/result/" + outputFileName + ".wav ~/music/result/" + outputFileName + ".mp3";
-		String scp = "scp -i ~/.ssh/backup/id_rsa ~/music/result/" + outputFileName + ".mp3 ec2-user@10.150.183.215:~/html/web_dj/music/result";
 	}
 	
 	
