@@ -56,7 +56,7 @@ public class SoxInterfaceService {
 		
 		command += " ~/music/result/" + outputFileName + ".wav";
 		System.out.println(command);
-		String[] commands = {"/bin/sh", "-c", command};
+		String[] commands = {"/bin/bash", "-c", command};
 		Process pr = Runtime.getRuntime().exec(command);
 		InputStream stderrStream = pr.getErrorStream();
 		System.out.println(inputStreemToString(stderrStream));
