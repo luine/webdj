@@ -28,6 +28,12 @@ import com.camobile.dig.model.SoundItem;
 
 public class SoxInterfaceService {
 
+	/**
+	 * sox へ直接コマンドを渡す。
+	 * @param nodes
+	 * @param outputFileName
+	 * @throws Exception
+	 */
 	public static void make(List nodes, String outputFileName) throws Exception {
 		if (nodes.size() < 1) {
 			return;
@@ -56,11 +62,15 @@ public class SoxInterfaceService {
 		
 		command += " ~/music/result/" + outputFileName + ".wav";
 		System.out.println(command);
-		String[] commands = {"/bin/bash", "-c", command};
-		Process pr = Runtime.getRuntime().exec(command);
+		String[] commands = {"/bin/sh", "-c", command};
+		Process pr = Runtime.getRuntime().exec(commands);
 		InputStream stderrStream = pr.getErrorStream();
 		System.out.println(inputStreemToString(stderrStream));
+		String enc = "lame ~/music/result/" + outputFileName + ".wav ~/music/result/" + outputFileName + ".mp3";
+		String scp = "scp -i ~/.ssh/backup/id_rsa ~/music/result/" + outputFileName + ".mp3 ec2-user@10.150.183.215:~/html/web_dj/music/result";
 	}
+	
+	
 	public static String inputStreemToString(InputStream in) throws IOException{
         
 	    BufferedReader reader = 
@@ -96,7 +106,7 @@ public class SoxInterfaceService {
 		sampler.setStart_time("3");
 		l.add(sampler);
 		try {
-			make(l, "auauauaau");
+			make(l, "doya");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
