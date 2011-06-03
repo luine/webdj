@@ -65,9 +65,19 @@ public class SoxInterfaceService {
 		String scp = "scp -i ~/.ssh/backup/id_rsa ~/music/result/" + outputFileName + ".mp3 ec2-user@10.150.183.215:~/html/web_dj/music/result";
 
 		System.out.println(command);
-		String[] commands = {"/bin/sh", "-c", command, enc, scp};
+		String[] commands = {"/bin/sh", "-c", command};
 		Process pr = Runtime.getRuntime().exec(commands);
 		InputStream stderrStream = pr.getErrorStream();
+		System.out.println(inputStreemToString(stderrStream));
+		
+		String[] encs = {"/bin/sh", "-c", enc};
+		pr = Runtime.getRuntime().exec(encs);
+		stderrStream = pr.getErrorStream();
+		System.out.println(inputStreemToString(stderrStream));
+		
+		String[] scps = {"/bin/sh", "-c", scp};
+		pr = Runtime.getRuntime().exec(scps);
+		stderrStream = pr.getErrorStream();
 		System.out.println(inputStreemToString(stderrStream));
 	}
 	
