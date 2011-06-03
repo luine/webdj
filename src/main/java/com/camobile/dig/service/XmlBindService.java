@@ -47,8 +47,6 @@ public class XmlBindService {
         // DOMパーサ用ファクトリの生成
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
-        // 名前空間を認識する
-        factory.setNamespaceAware(true);
         // DOM Documentインスタンス用ファクトリの生成
         DocumentBuilder builder = factory.newDocumentBuilder();
         
